@@ -1,3 +1,22 @@
+Design
+======
+We have 4 AWS services in play. API Gateway serves the frontend/supplies our endpoint. API Gateway serves the payload to SQS which invokes a Lambda function to commit the message payload to DynamoDB.
+
+Rationale for these services:
+- API Gateway because of the ability to expand the API and the web-facing freebies you get like TLS and throttling
+- SQS because it prevents data loss, downtime when an app crashes
+- Lambda because the app is simple and doesn't always have to be running since SQS triggers the job. Much more affordable than EC2 or ECS, especially at low volume
+- DynamoDB because a NoSQL DB is fast, scalable, and easily configured for simple payloads and potentially large and expanding datasets
+
+My rationale for AWS SaaS heavy approach versus EC2/ECS/EKS/ALB/R53: 
+1. We aren't _responding_ to the real-time incidents, only logging them. This means...
+2. A slower time to log each incident due to many AWS services is OK
+3. This is not a rapidly changing project, so the pre-canned solutions from AWS will suite this app well for years to come without making major changes
+4. Nearly the entire app can be deployed & updated with changes to `main.tf` and a `terraform apply`
+5. As far as cloud based solutions go -- this is a cheap implementation
+6. And of course, every AWS product included can perform at scale
+7. And you get a bunch of freebies, TLS, request throttling, redundancy
+
 Application URL: https://q4x0a6ucc6.execute-api.us-east-1.amazonaws.com/v1/notify
 
 Usage:
@@ -28,6 +47,9 @@ Payload/DB
 
 SQS
 - Consider SQS FIFO for its guaranteed one-time delivery
+
+Logging
+- There isn't any.
 
 
 
