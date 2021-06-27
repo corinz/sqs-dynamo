@@ -1,6 +1,8 @@
 Application URL: https://q4x0a6ucc6.execute-api.us-east-1.amazonaws.com/v1/notify
 
 Usage:
+1. `terraform apply`
+2. 
 `
 curl \
   --header "Content-Type: application/json" \
@@ -26,8 +28,6 @@ Payload/DB
 
 SQS
 - Consider SQS FIFO for its guaranteed one-time delivery
-
-
 
 
 
