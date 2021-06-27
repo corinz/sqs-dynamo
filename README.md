@@ -1,3 +1,37 @@
+Application URL: https://q4x0a6ucc6.execute-api.us-east-1.amazonaws.com/v1/notify
+
+Usage:
+`
+curl \
+  --header "Content-Type: application/json" \
+  --request POST \
+  --data '{"payload":"example"}' \
+https://q4x0a6ucc6.execute-api.us-east-1.amazonaws.com/v1/notify
+`
+
+Some TODOs/things I couldn't get to
+
+Terraform
+- TF deployment is currently a single file... simple to read, but not great to maintain
+- Remove in-line AWS policies from Terraform resources and place in dedicated directory
+
+Front End
+- POST request to front end (API Gateway) doesn't return meaningful response
+- Add authentication to the front-end, currently the endpoint is exposed to any user
+
+Payload/DB
+- Expand the use of DynamoDB by creating attributes that align with the expected payload instead of jamming the entire payload into a single attribute. This would decrease post-processing efforts down-stream
+- Enforce the defined payload stucture and reject anything else with meaningful errors
+- Append useful params to the payload before comitting, e.g. uuid, date/time received
+
+SQS
+- Consider SQS FIFO for its guaranteed one-time delivery
+
+
+
+
+
+
 Background
 ==========
 911 emergency incident data are sent in nation wide in realtime so that we can provide better analytics to improve fire department operations and public safety.
